@@ -1,0 +1,14 @@
+{
+  "name": "beatmix",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "*",
+    "mongoose" : "*",
+    "mongodb" : "*"
+  },
+  "devDependencies": {
+    "should": "~7.1.0",
+    "mocha": "~2.3.3",
+    "supertest": "~1.1.0"
+  }
+}
