@@ -19,15 +19,19 @@ app.get('/', function(req, res){
 // Socket io
 io.on('connection', function(socket) {
     console.log("Connection");
-    // Sends the data to everyone else
+    // Join a room
+    socket.on('join', function(data){
+      var code = data.code;
+      socket.join(code);
+    })
     socket.on('command', function(data){
-        io.emit('command', data);
-        console.log("Command");
-    });
+      io.in(socket.room).emit('command', data);
+      console.log("Command");
+    })
     socket.on('end', function(data){
-        io.emit('end', data);
-        console.log("End");
-    });
+      io.in(socket.room).emit('end', data);
+      console.log("End");
+    })
 });
 
 console.log('Express server started on port %s', PORT);
