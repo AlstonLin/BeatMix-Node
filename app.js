@@ -2,7 +2,7 @@ var express = require('express'),
     fs = require('fs'),
     http = require('http');
     app = express(),
-    server = require('http').createServer(app),
+    server = http.createServer(app),
     io = require('socket.io').listen(server),
     index = fs.readFileSync(__dirname + '/index.html'),
     PORT = 80;
@@ -30,4 +30,4 @@ io.on('connection', function(socket) {
 });
 
 console.log('Express server started on port %s', PORT);
-app.listen(PORT);
+server.listen(PORT);
