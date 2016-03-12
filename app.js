@@ -1,9 +1,10 @@
-var express = require('express'),
-    app = express.createServer();
+var express = require('express');
+var app = express();
+var PORT = 80;
 
 app.get('/', function(req, res){
     res.send('Hello World');
 });
 
-app.listen();
-console.log('Express server started on port %s', app.address().port);
+app.listen(PORT);
+console.log('Express server started on port %s', PORT);
