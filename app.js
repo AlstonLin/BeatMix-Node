@@ -15,19 +15,18 @@ app.get('/', function(req, res){
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.end(index);
 });
+
 // Socket io
-setInterval(function(){
-    console.log("Updated");
-    io.emit('time', {
-      time: new Date().toJSON()
-    });
-  }, 10000);
 io.on('connection', function(socket) {
-    // Use socket to communicate with this particular client only, sending it it's own id
-    socket.emit('welcome', { message: 'Welcome!', id: socket.id });
-    socket.on('i am client', console.log);
     console.log("Connection");
 });
+
+// Sends the data to everyone else
+io.on('command', function(data){
+  io.emit('command', data);
+  console.log("Command");
+
+})
 
 console.log('Express server started on port %s', PORT);
 server.listen(PORT);
