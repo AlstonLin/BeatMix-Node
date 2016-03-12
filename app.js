@@ -25,7 +25,10 @@ io.on('connection', function(socket) {
 io.on('command', function(data){
   io.emit('command', data);
   console.log("Command");
-
+})
+io.on('end', function(data){
+  io.emit('end', data);
+  console.log("End");
 })
 
 console.log('Express server started on port %s', PORT);
