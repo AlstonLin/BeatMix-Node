@@ -4,7 +4,10 @@
   "dependencies": {
     "express": "*",
     "mongoose" : "*",
-    "mongodb" : "*"
+    "mongodb" : "*",
+    "http" : "*",
+    "socket.io" : "*",
+    "fs" : "*"
   },
   "devDependencies": {
     "should": "~7.1.0",
