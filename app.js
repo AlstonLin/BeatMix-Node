@@ -22,15 +22,18 @@ io.on('connection', function(socket) {
     // Join a room
     socket.on('join', function(data){
       var code = data.code;
+      console.log("Joined room " + code );
       socket.join(code);
     });
     socket.on('command', function(data){
-      io.in(socket.room).emit('command', data);
-      console.log("Command");
+      var roomName = Object.keys(socket.rooms)[1];
+      io.in(roomName).emit('command', data);
+      console.log("Command " + data.note + " at " + roomName);
     });
     socket.on('end', function(data){
-      io.in(socket.room).emit('end', data);
-      console.log("End");
+      var roomName = Object.keys(socket.rooms)[1];
+      io.in(roomName).emit('end', data);
+      console.log("End at " + roomName);
     });
     socket.on('addSong', function(data){
       console.log("KEYS: " + Object.keys)
