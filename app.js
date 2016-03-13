@@ -36,11 +36,22 @@ io.on('connection', function(socket) {
       console.log("End at " + roomName);
     });
     socket.on('addSong', function(data){
-      console.log("KEYS: " + Object.keys)
       var title = data["title"];
       var author = data["author"];
       var content = JSON.stringify(data["content"]);
       console.log("Request with title = " + title + ", author = " + author + "content =" + content);
+      var newSong = new Song({
+        title: title,
+        author: author,
+        content: content
+      });
+      newSong.save(function(err){
+        if (err){
+          console.log("ERROR SAVING SONG: " + err);
+        } else{
+          console.log("Saved song!");
+        }
+      });
     })
 });
 
