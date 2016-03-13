@@ -22,16 +22,18 @@ io.on('connection', function(socket) {
     // Join a room
     socket.on('join', function(data){
       var code = data.code;
+      console.log("Joined room " + code );
       socket.join(code);
     })
     socket.on('command', function(data){
-      io.in(socket.room).emit('command', data);
-      console.log("Command");
-    })
-    socket.on('end', function(data){
-      io.in(socket.room).emit('end', data);
+      var roomName = Object.keys(socket.rooms)[1];
+      io.in(roomName).emit('command', data);
+      console.log("Command " + data.note + " at " + roomName);
+    });
+    socket.on('end', function(data, id){
+      io.in(id).emit('end', data);
       console.log("End");
-    })
+    });
 });
 
 console.log('Express server started on port %s', PORT);
