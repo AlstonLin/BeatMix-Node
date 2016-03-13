@@ -7,7 +7,7 @@ var express = require('express'),
     index = fs.readFileSync(__dirname + '/index.html'),
     PORT = 80;
 
-var Session = require('./session');
+var Song = require('./song');
 
 // Hello World at root to check if works
 app.get('/', function(req, res){
@@ -23,14 +23,21 @@ io.on('connection', function(socket) {
     socket.on('join', function(data){
       var code = data.code;
       socket.join(code);
-    })
+    });
     socket.on('command', function(data){
       io.in(socket.room).emit('command', data);
       console.log("Command");
-    })
+    });
     socket.on('end', function(data){
       io.in(socket.room).emit('end', data);
       console.log("End");
+    });
+    socket.on('addSong', function(data){
+      console.log("KEYS: " + Object.keys)
+      var title = data["title"];
+      var author = data["author"];
+      var content = JSON.stringify(data["content"]);
+      console.log("Request with title = " + title + ", author = " + author + "content =" + content);
     })
 });
 
